@@ -1,0 +1,79 @@
+{
+  "name": "WHIDL",
+  "displayName": "WHIDL Support",
+  "description": "",
+  "version": "0.0.1",
+  "main": "./out/main.js",
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "whdl",
+        "aliases": [
+          "hdl"
+        ],
+        "extensions": [
+          ".hdl",
+          ".whdl"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "whdl",
+        "scopeName": "source.hdl",
+        "path": "./syntaxes/hdl.tmLanguage.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "whidl.checkFile",
+        "title": "Check this HDL file for errors",
+        "icon": {
+          "light": "images/run.svg",
+          "dark": "images/run.svg"
+        }
+      },
+      {
+        "command": "whidl.testFile",
+        "title": "Run/Test this HDL file",
+        "icon": {
+          "light": "images/test.svg",
+          "dark": "images/test.svg"
+        }
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "when": "editorLangId == whdl",
+          "command": "whidl.checkFile",
+          "group": "navigation"
+        },
+        {
+          "when": "editorLangId == whdl",
+          "command": "whidl.testFile",
+          "group": "navigation"
+        }
+      ]
+    },
+    "scripts": {
+      "build-base": "esbuild ./src/extension.ts --bundle --outfile=out/main.js --external:vscode --format=cjs --platform=node --target=node16",
+      "compile": "tsc -p ./"
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "esbuild": "^0.19.1",
+    "shell-quote": "^1.8.0",
+    "vscode-languageclient": "^7.0.0"
+  }
+}
